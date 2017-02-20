@@ -29,7 +29,7 @@ window.RC = {
 
 $(document).ready(function() {
   var $input = $('#log');
-  $('#submit').click(() => {
+  $('#submit').click(function() {
     console.log($input.val());
   });
 });
