@@ -4,10 +4,11 @@ var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 var config = {
-  context: path.join(__dirname, '..', '/test'),
+  context: path.join(__dirname, '..', '/'),
   entry: {
     // Add each page's entry here
-    index: './index',
+    test: './test/index',
+    remote: './remote/index',
   },
   output: {
     path: path.join(__dirname, '..', '/test/dist'),
@@ -20,10 +21,16 @@ var config = {
     }),
     new ExtractTextPlugin("[name].css"),
     new HtmlWebpackPlugin({
-      template: './template.html',
-      filename: 'index.html',
-      chunks: ['index'],
+      template: './test/template.html',
+      filename: 'test.html',
+      chunks: ['test'],
       inject: 'head'
+    }),
+    new HtmlWebpackPlugin({
+      template: './remote/template.html',
+      filename: 'remote.html',
+      chunks: ['remote'],
+      inject: 'body'
     }),
   ],
   module: {
@@ -89,11 +96,11 @@ var config = {
   devServer: {
     host: '0.0.0.0',
     historyApiFallback: {
-      index: 'index.html',
+      index: 'remote.html',
       rewrites: [
-        { from: /\/index/, to: '/index.html' },
-        { from: /\/message/, to: '/message.html' },
-        { from: /\/wedding/, to: '/wedding.html' },
+        { from: /\/index/, to: '/remote.html' },
+        { from: /\/remote/, to: 'remote.html' },
+        { from: /\/test/, to: '/test.html' },
       ]
     },
     // proxy: {
