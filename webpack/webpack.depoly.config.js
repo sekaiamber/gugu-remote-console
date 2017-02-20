@@ -31,7 +31,7 @@ var config = {
       minSizeReduce: 1.5,
       moveToParents: true
     }),
-    new CommonsChunkPlugin('vendors', 'vendors.[hash].js', Infinity),
+    // new CommonsChunkPlugin('vendors', 'vendors.[hash].js', Infinity),
     new ExtractTextPlugin("[name].[hash].css"),
     new webpack.optimize.DedupePlugin(),
     new HtmlWebpackPlugin({
