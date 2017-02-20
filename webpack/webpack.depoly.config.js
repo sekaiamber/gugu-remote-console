@@ -41,6 +41,13 @@ var config = {
       inject: 'body',
       hash: true
     }),
+    new HtmlWebpackPlugin({
+      template: './test/template.deploy.html',
+      filename: 'test.html',
+      chunks: [],
+      inject: 'body',
+      hash: true,
+    }),
   ],
   module: {
     loaders: [
