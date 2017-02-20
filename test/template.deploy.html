@@ -17,8 +17,8 @@
     <button id="submit">SUBMIT</button>
   </div>
   <script>
-const head = document.getElementsByTagName('head')[0];
-const script = document.createElement('script');
+var head = document.getElementsByTagName('head')[0];
+var script = document.createElement('script');
 script.type = 'text/javascript';
 script.src = 'https://sekaiamber.github.io/remote-console/remoteConsole.bundle.js';
 head.appendChild(script);
@@ -27,8 +27,8 @@ window.RC = {
   uuid: 'remote-console-test'
 };
 
-$(document).ready(() => {
-  const $input = $('#log');
+$(document).ready(function() {
+  var $input = $('#log');
   $('#submit').click(() => {
     console.log($input.val());
   });
