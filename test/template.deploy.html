@@ -20,12 +20,8 @@
 var head = document.getElementsByTagName('head')[0];
 var script = document.createElement('script');
 script.type = 'text/javascript';
-script.src = 'https://sekaiamber.github.io/remote-console/remoteConsole.bundle.js';
+script.src = 'https://sekaiamber.github.io/remote-console/remoteConsole.bundle.js&remote-console-test';
 head.appendChild(script);
-
-window.RC = {
-  uuid: 'remote-console-test'
-};
 
 $(document).ready(function() {
   var $input = $('#log');

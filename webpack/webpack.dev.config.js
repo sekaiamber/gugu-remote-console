@@ -9,6 +9,7 @@ var config = {
     // Add each page's entry here
     test: './test/index',
     remote: './remote/index',
+    remoteConsole: './lib/index',
   },
   output: {
     path: path.join(__dirname, '..', '/test/dist'),
