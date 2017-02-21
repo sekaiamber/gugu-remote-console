@@ -3,21 +3,14 @@ This is a project that help user debug in mobile end.
 
 ## How to use
 
-1. import `remoteConsole.bundle.js` to your project.
+1. import `remoteConsole.bundle.js` to your project **with the screen id in the query string of the url**.
 ```html
-<script src="https://sekaiamber.github.io/remote-console/remoteConsole.bundle.js"></script>
+<script src="https://sekaiamber.github.io/remote-console/remoteConsole.bundle.js?uuid=YOUR-SCREEN-ID"></script>
 ```
 
-2. At the beginning of your scripts, set a screen id for your project.
-```javascript
-window.RC = {
-  uuid: 'my-screen'
-}
-```
+2. Access `https://sekaiamber.github.io/remote-console/`, entry your screen id(e.g., YOUR-SCREEN-ID), click `CONNECT`.
 
-3. Access `https://sekaiamber.github.io/remote-console/`, entry your screen id, click `CONNECT`.
-
-4. Then run your project, when `console.log()` executed, you can see logs in this page.
+3. Then run your project, when `console.log()` executed, you can see logs in this page.
 
 ## LICENSE
 
