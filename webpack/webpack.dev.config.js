@@ -90,10 +90,6 @@ var config = {
     extensions: ['', '.js', '.json', '.jsx', '.reactx', 'react'],
     alias: {}
   },
-  devtool: 'eval-source-map',
-  jshint: {
-    "esnext": true
-  },
   devServer: {
     host: '0.0.0.0',
     historyApiFallback: {
