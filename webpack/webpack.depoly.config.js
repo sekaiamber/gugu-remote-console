@@ -9,7 +9,7 @@ var config = {
   context: path.join(__dirname, '..', '/'),
   entry: {
     gugu: './lib/index',
-    remote: './remote/index',
+    remote: './pages/remote/index',
   },
   output: {
     path: path.join(__dirname, '..', '/dist'),
@@ -35,14 +35,14 @@ var config = {
     new ExtractTextPlugin("[name].[hash].css"),
     new webpack.optimize.DedupePlugin(),
     new HtmlWebpackPlugin({
-      template: './remote/template.html',
+      template: './pages/remote/template.html',
       filename: 'index.html',
       chunks: ['remote', 'vendors'],
       inject: 'body',
       hash: true
     }),
     new HtmlWebpackPlugin({
-      template: './test/template.deploy.html',
+      template: './pages/test/template.deploy.html',
       filename: 'test.html',
       chunks: [],
       inject: 'body',

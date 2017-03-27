@@ -7,8 +7,8 @@ var config = {
   context: path.join(__dirname, '..', '/'),
   entry: {
     // Add each page's entry here
-    test: './test/index',
-    remote: './remote/index',
+    test: './pages/test/index',
+    remote: './pages/remote/index',
     gugu: './lib/index',
   },
   output: {
@@ -22,13 +22,13 @@ var config = {
     }),
     new ExtractTextPlugin("[name].css"),
     new HtmlWebpackPlugin({
-      template: './test/template.html',
+      template: './pages/test/template.html',
       filename: 'test.html',
       chunks: ['test'],
       inject: 'head'
     }),
     new HtmlWebpackPlugin({
-      template: './remote/template.html',
+      template: './pages/remote/template.html',
       filename: 'remote.html',
       chunks: ['remote'],
       inject: 'body'
