@@ -3,12 +3,12 @@ This is a project that help user debug in mobile end.
 
 ## How to use
 
-1. import `remoteConsole.bundle.js` to your project **with the screen id in the query string of the url**.
+1. import `gugu.js` to your project **with the screen id in the query string of the url**.
 ```html
-<script src="https://sekaiamber.github.io/remote-console/remoteConsole.bundle.js?uuid=YOUR-SCREEN-ID"></script>
+<script src="https://sekaiamber.github.io/gugu-remote-console/gugu.js?uuid=YOUR-SCREEN-ID"></script>
 ```
 
-2. Access `https://sekaiamber.github.io/remote-console/`, entry your screen id(e.g., YOUR-SCREEN-ID), click `CONNECT`.
+2. Access `https://sekaiamber.github.io/gugu-remote-console/`, entry your screen id(e.g., YOUR-SCREEN-ID), click `CONNECT`.
 
 3. Then run your project, when `console.log()` executed, you can see logs in this page.
 

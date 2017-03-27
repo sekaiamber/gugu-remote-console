@@ -9,11 +9,11 @@ var config = {
     // Add each page's entry here
     test: './test/index',
     remote: './remote/index',
-    remoteConsole: './lib/index',
+    gugu: './lib/index',
   },
   output: {
     path: path.join(__dirname, '..', '/test/dist'),
-    filename: '[name].bundle.js',
+    filename: '[name].js',
   },
   plugins: [
     new webpack.DefinePlugin({

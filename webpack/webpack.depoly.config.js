@@ -8,12 +8,12 @@ var CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
 var config = {
   context: path.join(__dirname, '..', '/'),
   entry: {
-    remoteConsole: './lib/index',
+    gugu: './lib/index',
     remote: './remote/index',
   },
   output: {
     path: path.join(__dirname, '..', '/dist'),
-    filename: '[name].bundle.js',
+    filename: '[name].js',
   },
   plugins: [
     new webpack.DefinePlugin({
