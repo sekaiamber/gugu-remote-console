@@ -1,7 +1,7 @@
 /* eslint import/no-extraneous-dependencies: 0 */
 import { expect } from 'chai';
 import fixtures from './fixtures';
-import { encoder } from '../../lib/object';
+import { encoder } from '../../lib/utils/object';
 
 describe('object analysis', () => {
   it('basic types: boolean', (done) => {
