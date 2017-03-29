@@ -19,6 +19,24 @@ Moonkin form enables Druids to control hurricane and lightning, we wish our proj
 
 3. Then run your project, when `console.log()` executed, you can see logs in this page.
 
+## Develop
+
+1. run `npm run dev`, you can get test page at `http://localhost:8080/test.html`, and remote page at `http://localhost:8080/remote.html`, the test screen id is `test1`.
+
+## Test
+
+```shell
+$ npm run test
+```
+
+## Deploy
+
+```shell
+$ npm run deploy
+```
+
+Get files in `dist/`.
+
 ## LICENSE
 
 Copyright 2015-2016 CLEVERIOUS(@sekaiamber)
