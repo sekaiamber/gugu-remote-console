@@ -13,9 +13,18 @@
 </head>
 <body>
   <div id="opt">
-    <label for="log">Log:</label>
-    <input type="text" id="log" name="log">
-    <button id="connect">CONNECT</button>
+    <div>
+      <label for="log">Log:</label>
+      <input type="text" id="log" name="log">
+      <button id="connect">CONNECT</button>
+    </div>
+    <div>
+      <label for="command">Command:</label>
+      <textarea type="text" id="command" name="command"></textarea>
+      <button id="send">SEND</button>
+    </div>
+    <div id="commandResponse"></div>
+    <div id="commandResponseError"></div>
   </div>
 
   <div id="logs"></div>
