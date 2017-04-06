@@ -10,6 +10,7 @@ $(document).ready(() => {
   const $commandInput = $('#command');
   const $commandResponse = $('#commandResponse');
   const $commandResponseError = $('#commandResponseError');
+  const $networkResourcesTableBody = $('#networkResourcesTableBody');
 
   $('#connect').click(() => {
     if (rc) rc.disconnect();
@@ -46,6 +47,13 @@ $(document).ready(() => {
           }
           lines = lines.join('\n');
           $commandResponseError.html('<pre>' + lines + '</pre>');
+        }
+      },
+      onNetworkResourcesChange(resources) {
+        $networkResourcesTableBody.empty();
+        for (let i = 0; i < resources.length; i += 1) {
+          const res = resources[i];
+          $networkResourcesTableBody.append(`<tr> <td>${res.name}</td> <td>${res.initiatorType}</td> <td>${res.displayTime}</td> <td>${res.url}</td> </tr>`);
         }
       },
     });
