@@ -4,6 +4,37 @@ import './index.scss';
 
 let rc;
 
+function cutString(str, length = 50) {
+  if (str.length <= length) return str;
+  const ret = str.slice(0, length - 3);
+  return ret + '...';
+}
+
+function chanageNetworkRequestsModalContent(obj) {
+  const $content = $('#networkRequestsModalContent');
+  $content.empty();
+  $content.append(`<h5>${obj.name}</h5>`);
+  $content.append(`<dl class="dl-horizontal"> <dt>Method</dt><dd>${obj.method}</dd> </dl>`);
+  $content.append(`<dl class="dl-horizontal"> <dt>URL</dt><dd>${obj.url}</dd> </dl>`);
+  if (obj.done) {
+    $content.append(`<dl class="dl-horizontal"> <dt>Status</dt><dd>${obj.status}</dd> </dl>`);
+    $content.append(`<dl class="dl-horizontal"> <dt>Time</dt><dd>${obj.displayTime}</dd> </dl>`);
+    if (obj.data) $content.append(`<dl class="dl-horizontal"> <dt>Data</dt><dd>${obj.data}</dd> </dl>`);
+    $content.append('<h6>Response</h6>');
+    $content.append(`<dl class="dl-horizontal"> <dt>Size</dt><dd>${obj.size}</dd> </dl>`);
+    const $resHeaders = $('<dl class="dl-horizontal"> <dt>Headers</dt> </dl>');
+    const $resHeadersDd = $('<dd></dd>');
+    Object.keys(obj.resHeaders).forEach((key) => {
+      $resHeadersDd.append(`<div>${key} : ${obj.resHeaders[key]}</div>`);
+    });
+    $resHeaders.append($resHeadersDd);
+    $content.append($resHeaders);
+    $content.append(`<dl class="dl-horizontal"> <dt>Preview</dt><dd>${obj.resTxt}</dd> </dl>`);
+  } else {
+    $content.append('<dl class="dl-horizontal"> <dt>Status</dt><dd>Pending</dd> </dl>');
+  }
+}
+
 $(document).ready(() => {
   const $logInput = $('#log');
   const $logs = $('#logs');
@@ -11,6 +42,8 @@ $(document).ready(() => {
   const $commandResponse = $('#commandResponse');
   const $commandResponseError = $('#commandResponseError');
   const $networkResourcesTableBody = $('#networkResourcesTableBody');
+  const $networkRequestsTableBody = $('#networkRequestsTableBody');
+  const $networkRequestsModal = $('#networkRequestsModal');
 
   $('#connect').click(() => {
     if (rc) rc.disconnect();
@@ -33,7 +66,6 @@ $(document).ready(() => {
         } else {
           $commandResponse.html(resp.data.message);
           let lines = $commandInput.val().split('\n');
-          console.log(resp.data);
           if (resp.data.lineNumber) {
             let line = lines[resp.data.lineNumber - 1];
             if (resp.data.columnNumber) {
@@ -54,6 +86,22 @@ $(document).ready(() => {
         for (let i = 0; i < resources.length; i += 1) {
           const res = resources[i];
           $networkResourcesTableBody.append(`<tr> <td>${res.name}</td> <td>${res.initiatorType}</td> <td>${res.displayTime}</td> <td>${res.url}</td> </tr>`);
+        }
+      },
+      onNetworkRequestsChange(requests) {
+        $networkRequestsTableBody.empty();
+        for (let i = 0; i < requests.length; i += 1) {
+          const req = requests[i];
+          const $a = $(`<a>${cutString(req.name)}<a>`);
+          $a.click(() => {
+            chanageNetworkRequestsModalContent(req);
+            $networkRequestsModal.modal('show');
+          });
+          const $bt = $('<td></td>');
+          $bt.append($a);
+          const $tr = $(`<tr> <td>${req.status}</td> <td>${req.method}</td> <td>${req.subType}</td> <td>${req.size}</td> <td>${req.displayTime}</td> </tr>`);
+          $tr.prepend($bt);
+          $networkRequestsTableBody.append($tr);
         }
       },
     });

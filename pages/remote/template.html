@@ -63,6 +63,39 @@
           <tbody id="networkResourcesTableBody"></tbody>
         </table>
       </div>
+      <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading">XMLHttpRequests</div>
+
+        <!-- Table -->
+        <table class="table">
+          <thead>
+            <tr>
+              <th>File Name</th>
+              <th>Status</th>
+              <th>Method</th>
+              <th>Type</th>
+              <th>Size</th>
+              <th>Time</th>
+            </tr>
+          </thead>
+          <tbody id="networkRequestsTableBody"></tbody>
+        </table>
+      </div>
+
+      <div class="modal fade bs-example-modal-lg" id="networkRequestsModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title">Detail</h4>
+            </div>
+            <div class="modal-body" id="networkRequestsModalContent">
+              
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </body>

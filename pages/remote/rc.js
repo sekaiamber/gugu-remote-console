@@ -1,6 +1,7 @@
 let syncLogRef;
 let syncCommandRef;
 let syncNetworkResourcesRef;
+let syncNetworkRequestsRef;
 
 export default class RC {
   constructor(uuid, conf = {}) {
@@ -11,6 +12,7 @@ export default class RC {
     if (conf.onLogRemove) this.onLogRemove = conf.onLogRemove;
     if (conf.onCommandResponse) this.onCommandResponse = conf.onCommandResponse;
     if (conf.onNetworkResourcesChange) this.onNetworkResourcesChange = conf.onNetworkResourcesChange;
+    if (conf.onNetworkRequestsChange) this.onNetworkRequestsChange = conf.onNetworkRequestsChange;
 
     const config = {
       syncURL: 'https://remote-console.wilddogio.com/',
@@ -20,6 +22,7 @@ export default class RC {
     syncLogRef = this.sync.ref(`screens/${this.uuid}`);
     syncCommandRef = this.sync.ref(`commands/${this.uuid}`);
     syncNetworkResourcesRef = this.sync.ref(`networks/${this.uuid}/resources`);
+    syncNetworkRequestsRef = this.sync.ref(`networks/${this.uuid}/requests`);
 
     // logs
     syncLogRef.endAt(0).limitToLast(10).on('child_added', (snapshot) => {
@@ -48,6 +51,16 @@ export default class RC {
         this.onNetworkResourcesChange([]);
       }
     });
+
+    // network requests
+    syncNetworkRequestsRef.on('value', (snapshot) => {
+      const value = snapshot.val();
+      if (value) {
+        this.onNetworkRequestsChange(JSON.parse(value));
+      } else {
+        this.onNetworkRequestsChange([]);
+      }
+    });
   }
 
   onLogAdd(members /* , caller, key */) {
@@ -69,6 +82,8 @@ export default class RC {
   onCommandResponse(/* response */) {}
 
   onNetworkResourcesChange(/* resources */) {}
+
+  onNetworkRequestsChange(/* requests */) {}
 
   disconnect() {
     this.wilddog.sync().goOffline();
