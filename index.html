@@ -9,24 +9,98 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Remote console - by.SEKAI</title>
   <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+  <link href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+  <script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="//cdn.wilddog.com/sdk/js/2.4.4/wilddog-sync.js"></script>
-<link href="remote.9a1549364c86d9474993.css?9a1549364c86d9474993" rel="stylesheet"></head>
+  <style>
+    .tab-pane {
+      margin-top: 15px;
+      padding: 5px 15px;
+    }
+  </style>
+<link href="remote.b4e49f2e1e41d3590480.css?b4e49f2e1e41d3590480" rel="stylesheet"></head>
 <body>
-  <div id="opt">
-    <div>
-      <label for="log">Log:</label>
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#config" aria-controls="config" role="tab" data-toggle="tab">Config</a></li>
+    <li role="presentation"><a href="#logs" aria-controls="logs" role="tab" data-toggle="tab">Log</a></li>
+    <li role="presentation"><a href="#commandPanel" aria-controls="commandPanel" role="tab" data-toggle="tab">Command</a></li>
+    <li role="presentation"><a href="#network" aria-controls="network" role="tab" data-toggle="tab">Network</a></li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="config">
+      <div>
+        <img src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3431954863,1945330254&fm=116&gp=0.jpg" alt="gugu">
+      </div>
+      <h2>This is GUGU, Welcome :)</h2>
+      <label for="log">Your ScreenId:</label>
       <input type="text" id="log" name="log">
       <button id="connect">CONNECT</button>
     </div>
-    <div>
-      <label for="command">Command:</label>
-      <textarea type="text" id="command" name="command"></textarea>
-      <button id="send">SEND</button>
+    <div role="tabpanel" class="tab-pane" id="logs"></div>
+    <div role="tabpanel" class="tab-pane" id="commandPanel">
+      <div>
+        <label for="command">Command:</label>
+        <textarea type="text" id="command" name="command"></textarea>
+        <button id="send">SEND</button>
+      </div>
+      <div id="commandResponse"></div>
+      <div id="commandResponseError"></div>
     </div>
-    <div id="commandResponse"></div>
-    <div id="commandResponseError"></div>
-  </div>
+    <div role="tabpanel" class="tab-pane" id="network">
+      <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading">Resources</div>
 
-  <div id="logs"></div>
-<script type="text/javascript" src="remote.js?9a1549364c86d9474993"></script></body>
+        <!-- Table -->
+        <table class="table">
+          <thead>
+            <tr>
+              <th>File Name</th>
+              <th>Type</th>
+              <th>Display Time</th>
+              <th>URL</th>
+            </tr>
+          </thead>
+          <tbody id="networkResourcesTableBody"></tbody>
+        </table>
+      </div>
+      <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading">XMLHttpRequests</div>
+
+        <!-- Table -->
+        <table class="table">
+          <thead>
+            <tr>
+              <th>File Name</th>
+              <th>Status</th>
+              <th>Method</th>
+              <th>Type</th>
+              <th>Size</th>
+              <th>Time</th>
+            </tr>
+          </thead>
+          <tbody id="networkRequestsTableBody"></tbody>
+        </table>
+      </div>
+
+      <div class="modal fade bs-example-modal-lg" id="networkRequestsModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title">Detail</h4>
+            </div>
+            <div class="modal-body" id="networkRequestsModalContent">
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<script type="text/javascript" src="remote.js?b4e49f2e1e41d3590480"></script></body>
 </html>
