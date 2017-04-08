@@ -2,6 +2,7 @@ var webpack = require('webpack');
 var path = require('path');
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 var config = {
   context: path.join(__dirname, '..', '/'),
@@ -33,6 +34,9 @@ var config = {
       chunks: ['remote'],
       inject: 'body'
     }),
+    new CopyWebpackPlugin([
+      { from: './pages/snippet', to: 'snippet' },
+    ]),
   ],
   module: {
     perLoaders: [
