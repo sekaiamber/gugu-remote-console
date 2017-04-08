@@ -38,6 +38,10 @@ $(document).ready(function() {
   $('#submit').click(function() {
     console.log($input.val());
   });
+
+  $('#ajax').click(() => {
+    $.ajax('/snippet/ajax.json');
+  });
 });
   </script>
 </body>
