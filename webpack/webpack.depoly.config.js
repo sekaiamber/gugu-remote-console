@@ -4,6 +4,7 @@ var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var uglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
 var CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 var config = {
   context: path.join(__dirname, '..', '/'),
@@ -48,6 +49,9 @@ var config = {
       inject: 'body',
       hash: true,
     }),
+    new CopyWebpackPlugin([
+      { from: './pages/snippet', to: 'snippet' },
+    ]),
   ],
   module: {
     loaders: [
