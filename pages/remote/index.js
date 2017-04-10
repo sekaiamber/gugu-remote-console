@@ -47,6 +47,7 @@ $(document).ready(() => {
   const $infoLocation = $('#infoLocation');
   const $infoUserAgent = $('#infoUserAgent');
   const $infoDevice = $('#infoDevice');
+  const $featuresRow = $('#featuresRow');
 
   $('#connect').click(() => {
     if (rc) rc.disconnect();
@@ -116,6 +117,16 @@ $(document).ready(() => {
             $infoDevice.append(`<dl class="dl-horizontal"> <dt>${key}</dt><dd>${info.device[key]}</dd> </dl>`);
           });
         }
+      },
+      onFeaturesChange(features) {
+        $featuresRow.empty();
+        $featuresRow.append('<div class="col-sm-12"><p class="bg-info text-center"><a target="_blank" href="http://html5test.com" ontouchstart="">Go To HTML5 Test To See All Features</a></p></div>');
+        const names = Object.keys(features);
+        names.sort();
+        names.forEach((name) => {
+          $featuresRow.append(`<div class="col-sm-4"><p class="${features[name] ? 'bg-success' : 'bg-danger'} text-center">${name}</p></div>`);
+        });
+        $featuresRow.append('<div class="col-sm-12"><p class="bg-info text-center"><a target="_blank" href="http://html5test.com" ontouchstart="">Go To HTML5 Test To See All Features</a></p></div>');
       },
     });
   });
