@@ -1,8 +1,11 @@
+import features from '../../lib/constants/features.json';
+
 let syncLogRef;
 let syncCommandRef;
 let syncNetworkResourcesRef;
 let syncNetworkRequestsRef;
 let syncInfoRef;
+let syncFeaturesRef;
 
 export default class RC {
   constructor(uuid, conf = {}) {
@@ -15,6 +18,7 @@ export default class RC {
     if (conf.onNetworkResourcesChange) this.onNetworkResourcesChange = conf.onNetworkResourcesChange;
     if (conf.onNetworkRequestsChange) this.onNetworkRequestsChange = conf.onNetworkRequestsChange;
     if (conf.onInfoChange) this.onInfoChange = conf.onInfoChange;
+    if (conf.onFeaturesChange) this.onFeaturesChange = conf.onFeaturesChange;
 
     const config = {
       syncURL: 'https://remote-console.wilddogio.com/',
@@ -26,6 +30,7 @@ export default class RC {
     syncNetworkResourcesRef = this.sync.ref(`networks/${this.uuid}/resources`);
     syncNetworkRequestsRef = this.sync.ref(`networks/${this.uuid}/requests`);
     syncInfoRef = this.sync.ref(`infos/${this.uuid}`);
+    syncFeaturesRef = this.sync.ref(`features/${this.uuid}`);
 
     // logs
     syncLogRef.endAt(0).limitToLast(10).on('child_added', (snapshot) => {
@@ -77,6 +82,21 @@ export default class RC {
         this.onInfoChange({});
       }
     });
+
+    // feature
+    syncFeaturesRef.on('value', (snapshot) => {
+      let value = snapshot.val();
+      if (value) {
+        value = JSON.parse(value);
+        const des = {};
+        features.forEach((feature, i) => {
+          des[feature.des] = value[i] === '1';
+        });
+        this.onFeaturesChange(des);
+      } else {
+        this.onFeaturesChange({});
+      }
+    });
   }
 
   onLogAdd(members /* , caller, key */) {
@@ -102,6 +122,8 @@ export default class RC {
   onNetworkRequestsChange(/* requests */) {}
 
   onInfoChange(/* info */) {}
+
+  onFeaturesChange(/* features */) {}
 
   disconnect() {
     this.wilddog.sync().goOffline();
