@@ -17,8 +17,11 @@
       margin-top: 15px;
       padding: 5px 15px;
     }
+    #featuresRow p {
+      padding: 15px;
+    }
   </style>
-<link href="remote.a786db06da1d84c17038.css?a786db06da1d84c17038" rel="stylesheet"></head>
+<link href="remote.c08c280d019f431024e8.css?c08c280d019f431024e8" rel="stylesheet"></head>
 <body>
   <!-- Nav tabs -->
   <ul class="nav nav-tabs" role="tablist">
@@ -27,6 +30,7 @@
     <li role="presentation"><a href="#commandPanel" aria-controls="commandPanel" role="tab" data-toggle="tab">Command</a></li>
     <li role="presentation"><a href="#network" aria-controls="network" role="tab" data-toggle="tab">Network</a></li>
     <li role="presentation"><a href="#info" aria-controls="info" role="tab" data-toggle="tab">Info</a></li>
+    <li role="presentation"><a href="#features" aria-controls="features" role="tab" data-toggle="tab">Features</a></li>
   </ul>
 
   <!-- Tab panes -->
@@ -36,9 +40,13 @@
         <img src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3431954863,1945330254&fm=116&gp=0.jpg" alt="gugu">
       </div>
       <h2>This is GUGU, Welcome :)</h2>
-      <label for="log">Your ScreenId:</label>
-      <input type="text" id="log" name="log">
-      <button id="connect">CONNECT</button>
+      <div class="form-inline">
+        <div class="form-group">
+          <label for="log">Your ScreenId:</label>
+          <input type="text" class="form-control" id="log">
+        </div>
+        <button class="btn btn-default" id="connect">CONNECT</button>
+      </div>
     </div>
     <div role="tabpanel" class="tab-pane" id="logs"></div>
     <div role="tabpanel" class="tab-pane" id="commandPanel">
@@ -124,6 +132,11 @@
       </div>
 
     </div>
+
+    <div role="tabpanel" class="tab-pane" id="features">
+      <div class="row" id="featuresRow">
+      </div>
+    </div>
   </div>
-<script type="text/javascript" src="remote.js?a786db06da1d84c17038"></script></body>
+<script type="text/javascript" src="remote.js?c08c280d019f431024e8"></script></body>
 </html>
