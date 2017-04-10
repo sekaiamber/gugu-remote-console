@@ -110,12 +110,11 @@ $(document).ready(() => {
       onInfoChange(info) {
         $infoLocation.html(info.location || '');
         $infoUserAgent.html(info.userAgent || '');
+        $infoDevice.empty();
         if (info.device) {
           Object.keys(info.device).forEach((key) => {
             $infoDevice.append(`<dl class="dl-horizontal"> <dt>${key}</dt><dd>${info.device[key]}</dd> </dl>`);
           });
-        } else {
-          $infoDevice.empty();
         }
       },
     });
