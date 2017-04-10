@@ -11,7 +11,7 @@
   "scripts": {
     "build": "webpack --progress --colors --watch --config webpack/webpack.dev.config.js",
     "dev": "webpack-dev-server --progress --colors --display-error-details --inline --hot --content-base root/build --config webpack/webpack.dev.config.js",
-    "deploy": "NODE_ENV=production webpack -p --display-error-details --config webpack/webpack.depoly.config.js",
+    "deploy": "NODE_ENV=production webpack -p --display-error-details --config webpack/webpack.depoly.config.js --profile --json > webpack-stats.json",
     "lint": "eslint --ext js,jsx,vue,reactx root",
     "test": "webpack --config webpack/webpack.test.config.js --display-error-details"
   },
