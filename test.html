@@ -43,7 +43,7 @@ $(document).ready(function() {
     console.log($input.val());
   });
 
-  $('#ajax').click(() => {
+  $('#ajax').click(function() {
     $.ajax('snippet/ajax.json');
   });
 });
