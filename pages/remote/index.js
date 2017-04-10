@@ -44,6 +44,9 @@ $(document).ready(() => {
   const $networkResourcesTableBody = $('#networkResourcesTableBody');
   const $networkRequestsTableBody = $('#networkRequestsTableBody');
   const $networkRequestsModal = $('#networkRequestsModal');
+  const $infoLocation = $('#infoLocation');
+  const $infoUserAgent = $('#infoUserAgent');
+  const $infoDevice = $('#infoDevice');
 
   $('#connect').click(() => {
     if (rc) rc.disconnect();
@@ -102,6 +105,17 @@ $(document).ready(() => {
           const $tr = $(`<tr> <td>${req.status}</td> <td>${req.method}</td> <td>${req.subType}</td> <td>${req.size}</td> <td>${req.displayTime}</td> </tr>`);
           $tr.prepend($bt);
           $networkRequestsTableBody.append($tr);
+        }
+      },
+      onInfoChange(info) {
+        $infoLocation.html(info.location || '');
+        $infoUserAgent.html(info.userAgent || '');
+        if (info.device) {
+          Object.keys(info.device).forEach((key) => {
+            $infoDevice.append(`<dl class="dl-horizontal"> <dt>${key}</dt><dd>${info.device[key]}</dd> </dl>`);
+          });
+        } else {
+          $infoDevice.empty();
         }
       },
     });

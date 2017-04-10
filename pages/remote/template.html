@@ -26,6 +26,7 @@
     <li role="presentation"><a href="#logs" aria-controls="logs" role="tab" data-toggle="tab">Log</a></li>
     <li role="presentation"><a href="#commandPanel" aria-controls="commandPanel" role="tab" data-toggle="tab">Command</a></li>
     <li role="presentation"><a href="#network" aria-controls="network" role="tab" data-toggle="tab">Network</a></li>
+    <li role="presentation"><a href="#info" aria-controls="info" role="tab" data-toggle="tab">Info</a></li>
   </ul>
 
   <!-- Tab panes -->
@@ -94,12 +95,34 @@
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
               <h4 class="modal-title">Detail</h4>
             </div>
-            <div class="modal-body" id="networkRequestsModalContent">
-              
-            </div>
+            <div class="modal-body" id="networkRequestsModalContent"></div>
           </div>
         </div>
       </div>
+    </div>
+
+    <div role="tabpanel" class="tab-pane" id="info">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Location</h3>
+        </div>
+        <div class="panel-body" id="infoLocation"></div>
+      </div>
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">User Agent</h3>
+        </div>
+        <div class="panel-body" id="infoUserAgent"></div>
+      </div>
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Device</h3>
+        </div>
+        <div class="panel-body" id="infoDevice"></div>
+      </div>
+
     </div>
   </div>
 </body>
