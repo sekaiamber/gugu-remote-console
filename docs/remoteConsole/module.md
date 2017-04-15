@@ -63,7 +63,7 @@ gugu的功能模块被设计为跟通信分离([#32](https://github.com/sekaiamb
 
 ## 连接Store
 
-模块需要在`connectStore`中完成连接Store的工作，这里提供了连接修饰器。
+模块需要在`connectStore`中完成连接Store的工作，这里提供了连接修饰器，也可以手动编写代码。
 
 ### 连接器 `connectStore.js`
 
@@ -98,3 +98,22 @@ const storeConfig = {
 ```
 
 相关配置作用可以在Store文档中找到。
+
+### 使用Store API来连接
+
+可以在`connectStore`中手动编写相关代码来连接Store，可以应对更加复杂的情况
+
+```javascript
+connectStore() {
+  // set keys of this module
+  this.storeKeys = ['key1', 'key2'];
+  this.store.registerWriter('key1', undefined, {
+    // config of key1
+    ...
+  });
+  this.store.registerWriter('key2', initDataOfKey2, {
+    // config of key2
+    ...
+  });
+}
+```
