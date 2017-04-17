@@ -35,6 +35,15 @@ function chanageNetworkRequestsModalContent(obj) {
   }
 }
 
+const configDescription = {
+  Ce: 'Enable Command Module',
+  Ie: 'Enable Info Module',
+  Le: 'Enable Log Module',
+  Ne: 'Enable Network Module',
+  Nq: 'Enable Network Module XMRs Feature',
+  Nr: 'Enable Network Module Resources Feature',
+};
+
 $(document).ready(() => {
   const $logInput = $('#log');
   const $logs = $('#logs');
@@ -48,6 +57,7 @@ $(document).ready(() => {
   const $infoUserAgent = $('#infoUserAgent');
   const $infoDevice = $('#infoDevice');
   const $featuresRow = $('#featuresRow');
+  const $configsList = $('#configsList');
 
   $('#connect').click(() => {
     if (rc) rc.disconnect();
@@ -127,6 +137,31 @@ $(document).ready(() => {
           $featuresRow.append(`<div class="col-sm-4"><p class="${features[name] ? 'bg-success' : 'bg-danger'} text-center">${name}</p></div>`);
         });
         $featuresRow.append('<div class="col-sm-12"><p class="bg-info text-center"><a target="_blank" href="http://html5test.com" ontouchstart="">Go To HTML5 Test To See All Features</a></p></div>');
+      },
+      onConfigsChange(configs) {
+        $configsList.empty();
+        const $submit = $('<button class="btn btn-default" id="connect">Change Setting</button>');
+        $submit.click(() => {
+          const config = {};
+          $('[configName]').each((i, elem) => {
+            const c = $(elem);
+            if (c.attr('configType') === 'boolean') {
+              config[c.attr('configName')] = c.is(':checked');
+            }
+          });
+          rc.changeConfigs(config);
+        });
+        $configsList.append($submit);
+        Object.keys(configs).forEach((key) => {
+          const value = configs[key];
+          let $conf;
+          if (typeof value === 'boolean') {
+            $conf = $(`<div class="checkbox"><label><input type="checkbox" configName="${key}" configType="boolean" ${value ? 'checked' : ''}>${configDescription[key]}</label></div>`);
+          }
+          if ($conf) {
+            $configsList.append($conf);
+          }
+        });
       },
     });
   });

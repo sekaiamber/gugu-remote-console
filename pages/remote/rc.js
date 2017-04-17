@@ -6,6 +6,7 @@ let syncNetworkResourcesRef;
 let syncNetworkRequestsRef;
 let syncInfoRef;
 let syncFeaturesRef;
+let syncConfigsRef;
 
 export default class RC {
   constructor(uuid, conf = {}) {
@@ -19,6 +20,7 @@ export default class RC {
     if (conf.onNetworkRequestsChange) this.onNetworkRequestsChange = conf.onNetworkRequestsChange;
     if (conf.onInfoChange) this.onInfoChange = conf.onInfoChange;
     if (conf.onFeaturesChange) this.onFeaturesChange = conf.onFeaturesChange;
+    if (conf.onConfigsChange) this.onConfigsChange = conf.onConfigsChange;
 
     const config = {
       syncURL: 'https://remote-console.wilddogio.com/',
@@ -31,6 +33,7 @@ export default class RC {
     syncNetworkRequestsRef = this.sync.ref(`networks/${this.uuid}/requests`);
     syncInfoRef = this.sync.ref(`infos/${this.uuid}`);
     syncFeaturesRef = this.sync.ref(`features/${this.uuid}`);
+    syncConfigsRef = this.sync.ref(`configs/${this.uuid}`);
 
     // logs
     syncLogRef.endAt(0).limitToLast(10).on('child_added', (snapshot) => {
@@ -97,6 +100,18 @@ export default class RC {
         this.onFeaturesChange({});
       }
     });
+
+    // config
+    this.configs = null;
+    syncConfigsRef.on('value', (snapshot) => {
+      const configs = snapshot.val();
+      this.configs = configs;
+      if (configs) {
+        this.onConfigsChange(configs);
+      } else {
+        this.onConfigsChange({});
+      }
+    });
   }
 
   onLogAdd(members /* , caller, key */) {
@@ -114,6 +129,19 @@ export default class RC {
       command: request,
     });
   }
+  changeConfigs(configs) {
+    const send = {};
+    Object.keys(configs).forEach((key) => {
+      if (this.configs[key] !== configs[key]) {
+        send[key] = configs[key];
+      }
+    });
+    if (Object.keys(send).length === 0) {
+      console.log(0);
+    } else {
+      syncConfigsRef.update(send);
+    }
+  }
 
   onCommandResponse(/* response */) {}
 
@@ -124,6 +152,8 @@ export default class RC {
   onInfoChange(/* info */) {}
 
   onFeaturesChange(/* features */) {}
+
+  onConfigsChange(/* configs */) {}
 
   disconnect() {
     this.wilddog.sync().goOffline();
