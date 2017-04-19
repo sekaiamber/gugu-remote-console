@@ -1,6 +1,6 @@
+import '!!style-loader!css-loader!autoprefixer?{browsers:["last 2 version", "> 1%"]}!sass!./index.scss';
 import $ from 'jquery';
 import RC from './rc';
-import './index.scss';
 
 let rc;
 

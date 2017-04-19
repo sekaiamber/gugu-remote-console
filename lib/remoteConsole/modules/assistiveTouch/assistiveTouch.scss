@@ -1,0 +1,59 @@
+.gugu-at-bt {
+  position: fixed;
+  height: 40px;
+  width: 40px;
+  top: 50px;
+  right: 30px;
+  // transform: translate(50%, -50%);
+  transform: translate(50%, 0);
+  background: rgba(0, 0, 0, .3);
+  transition: all ease 0.3s;
+  border-radius: 5px;
+  cursor: pointer;
+  overflow: hidden;
+  z-index: 1000;
+
+  &.show {
+    // top: 50%;
+    // right: 50%;
+    height: 80px;
+    background: rgba(0, 0, 0, .5);
+
+    .gugu-at-list {
+      height: 40px;
+    }
+  }
+  .gugu-at-trigger {
+    content: '';
+    background: rgba(255, 255, 255, .5);
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 24px;
+    height: 24px;
+    border-radius: 12px;
+  }
+  .gugu-at-list {
+    position: absolute;
+    height: 0px;
+    width: 40px;
+    left: 0;
+    top: 0;
+    overflow: hidden;
+    transition: height ease 0.3s;
+
+    &>div {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      line-height: 40px;
+      text-align: center;
+      color: #fff;
+
+      &.active {
+        background: rgba(255, 0, 0, .3);
+      }
+    }
+  }
+}

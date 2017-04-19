@@ -1,0 +1,58 @@
+.gugu-elements-highlight {
+  // display: none;
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  pointer-events: none !important;
+  * {
+    pointer-events: none !important;
+  }
+  .gugu-indicator {
+    opacity: .5;
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .gugu-margin {
+    position: absolute;
+    background: #e8925b;
+    z-index: 100;
+  }
+  .gugu-border {
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background: #ffcd7c;
+    z-index: 200;
+  }
+  .gugu-padding {
+    position: absolute;
+    background: #86af76;
+    z-index: 300;
+  }
+  .gugu-content {
+    position: absolute;
+    background: #5e88c1;
+    z-index: 400;
+  }
+  .gugu-size {
+    z-index: 500;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #333740;
+    color: #d9d9d9;
+    font-size: 12px;
+    height: 25px;
+    line-height: 25px;
+    text-align: center;
+    padding: 0 5px;
+    white-space: nowrap;
+    overflow-x: hidden;
+  }
+}
