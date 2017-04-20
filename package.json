@@ -69,6 +69,7 @@
     "gravatar-api": "^1.4.0",
     "jquery": "^3.1.0",
     "lodash": "^4.17.4",
+    "lz-string": "^1.4.4",
     "marked": "^0.3.6",
     "path": "^0.12.7",
     "react": "^15.0.0",

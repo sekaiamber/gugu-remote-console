@@ -1,6 +1,7 @@
 import '!!style-loader!css-loader!autoprefixer?{browsers:["last 2 version", "> 1%"]}!sass!./index.scss';
 import $ from 'jquery';
 import RC from './rc';
+import defComputedStyle from '../../lib/constants/defComputedStyle.json';
 
 let rc;
 
@@ -163,12 +164,82 @@ $(document).ready(() => {
           }
         });
       },
+      onSelectElementChange(info) {
+        $('#marginTop').html(info.mt || '-');
+        $('#marginLeft').html(info.ml || '-');
+        $('#marginRight').html(info.mr || '-');
+        $('#marginBottom').html(info.mb || '-');
+        $('#borderTop').html(info.bt || '-');
+        $('#borderLeft').html(info.bl || '-');
+        $('#borderRight').html(info.br || '-');
+        $('#borderBottom').html(info.bb || '-');
+        $('#paddingTop').html(info.pt || '-');
+        $('#paddingLeft').html(info.pl || '-');
+        $('#paddingRight').html(info.pr || '-');
+        $('#paddingBottom').html(info.pb || '-');
+        if (info.w && info.h) {
+          $('#contentBox').html(`${info.w} × ${info.h}`);
+        } else {
+          $('#contentBox').html('&nbsp;');
+        }
+        const $computedStyleList = $('#computedStyleList').empty();
+        if (info.computedStyle) {
+          let styles = {};
+          Object.keys(defComputedStyle).forEach((key) => {
+            styles[key] = {
+              name: key,
+              default: true,
+              value: defComputedStyle[key],
+            };
+          });
+          Object.keys(info.computedStyle).forEach((key) => {
+            styles[key] = {
+              name: key,
+              default: false,
+              value: info.computedStyle[key],
+            };
+          });
+          const styleNames = Object.keys(styles);
+          styleNames.sort();
+          styles = styleNames.map(name => styles[name]);
+          styles.forEach((style) => {
+            $computedStyleList.append(`<div class="element-style ${style.default ? 'default' : ''}"> <span class="style-name">${style.name}</span> <span class="style-value">${style.value}</span></div>`);
+          });
+        }
+        const $elementStyleAttrList = $('#elementStyleAttrList').empty();
+        const $elementStyleSheetsList = $('#elementStyleSheetsList').empty();
+        if (info.styleSheets) {
+          info.styleSheets.forEach((styleSheet) => {
+            const $sheet = $(`<div class="element-style-sheet">
+              <div><span>${styleSheet.selector}</span> {</div>
+              <div class="element-style-items"></div>
+              <div>}</div>
+            </div>`);
+            const $list = $('.element-style-items', $sheet);
+            Object.keys(styleSheet.style).forEach((name) => {
+              $list.append(`<div class="element-style"> <span class="style-name">${name}</span>: <span class="style-value">${styleSheet.style[name]}</span></div>`);
+            });
+            $elementStyleSheetsList.append($sheet);
+          });
+        }
+        if (info.styleAttr) {
+          console.info(info.styleAttr);
+        }
+      },
     });
   });
 
   $('#send').click(() => {
     if (rc) {
       rc.sendCommand($commandInput.val());
+    }
+  });
+  const $computedStyleShowAll = $('#computedStyleShowAll');
+  $computedStyleShowAll.click(() => {
+    if ($computedStyleShowAll.is(':checked')) {
+      $('#computedStyleList').addClass('show-all');
+    } else {
+      $('#computedStyleList').removeClass('show-all');
     }
   });
 });

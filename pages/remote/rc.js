@@ -1,3 +1,4 @@
+import LZString from 'lz-string';
 import features from '../../lib/constants/features.json';
 
 let syncLogRef;
@@ -7,6 +8,7 @@ let syncNetworkRequestsRef;
 let syncInfoRef;
 let syncFeaturesRef;
 let syncConfigsRef;
+let syncElementSelectRef;
 
 export default class RC {
   constructor(uuid, conf = {}) {
@@ -21,6 +23,7 @@ export default class RC {
     if (conf.onInfoChange) this.onInfoChange = conf.onInfoChange;
     if (conf.onFeaturesChange) this.onFeaturesChange = conf.onFeaturesChange;
     if (conf.onConfigsChange) this.onConfigsChange = conf.onConfigsChange;
+    if (conf.onSelectElementChange) this.onSelectElementChange = conf.onSelectElementChange;
 
     const config = {
       syncURL: 'https://remote-console.wilddogio.com/',
@@ -34,6 +37,7 @@ export default class RC {
     syncInfoRef = this.sync.ref(`infos/${this.uuid}`);
     syncFeaturesRef = this.sync.ref(`features/${this.uuid}`);
     syncConfigsRef = this.sync.ref(`configs/${this.uuid}`);
+    syncElementSelectRef = this.sync.ref(`element/${this.uuid}/select`);
 
     // logs
     syncLogRef.endAt(0).limitToLast(10).on('child_added', (snapshot) => {
@@ -112,6 +116,17 @@ export default class RC {
         this.onConfigsChange({});
       }
     });
+
+    // element
+    syncElementSelectRef.on('value', (snapshot) => {
+      const encodeInfo = snapshot.val();
+      if (encodeInfo) {
+        const info = LZString.decompressFromUTF16(encodeInfo);
+        this.onSelectElementChange(JSON.parse(info));
+      // } else {
+      //   this.onSelectElementChange({});
+      }
+    });
   }
 
   onLogAdd(members /* , caller, key */) {
@@ -154,6 +169,8 @@ export default class RC {
   onFeaturesChange(/* features */) {}
 
   onConfigsChange(/* configs */) {}
+
+  onSelectElementChange(/* info */) {}
 
   disconnect() {
     this.wilddog.sync().goOffline();
