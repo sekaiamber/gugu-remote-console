@@ -26,6 +26,7 @@
   <!-- Nav tabs -->
   <ul class="nav nav-tabs" role="tablist">
     <li role="presentation" class="active"><a href="#config" aria-controls="config" role="tab" data-toggle="tab">Config</a></li>
+    <li role="presentation"><a href="#element" aria-controls="element" role="tab" data-toggle="tab">Element</a></li>
     <li role="presentation"><a href="#logs" aria-controls="logs" role="tab" data-toggle="tab">Log</a></li>
     <li role="presentation"><a href="#commandPanel" aria-controls="commandPanel" role="tab" data-toggle="tab">Command</a></li>
     <li role="presentation"><a href="#network" aria-controls="network" role="tab" data-toggle="tab">Network</a></li>
@@ -54,6 +55,58 @@
       <div class="panel panel-default">
         <div class="panel-body">
           <div id="configsList"></div>
+        </div>
+      </div>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="element">
+      <div id="elementContent">
+        <div id="elementInfo">
+          <tt>
+            <div>DOM structure</div>
+            <div id="elementSelector"></div>
+            <hr>
+            <div id="elementStyleAttr">
+              <div><span style="color: #888;">element.style</span> {</div>
+              <div id="elementStyleAttrList"></div>
+              <div class="element-style"> <input class="style-name" />: <input class="style-value" />;</div>
+              <div>}</div>
+              <div><button class="btn btn-default" id="changeStyle">Change Style</button></div>
+            </div>
+            <hr>
+            <div id="elementStyleSheetsList"></div>
+          </tt>
+        </div>
+        <div id="elementBox">
+          <div id="marginBox" class="box">
+            <div id="marginTop" class="box-top">-</div>
+            <div id="marginCenter" class="box-middle">
+              <div id="marginLeft" class="box-left">-</div>
+                <div id="borderBox" class="box box-content">
+                  <div id="borderTop" class="box-top">-</div>
+                  <div id="borderCenter" class="box-middle">
+                    <div id="borderLeft" class="box-left">-</div>
+                      <div id="paddingBox" class="box box-content">
+                        <div id="paddingTop" class="box-top">-</div>
+                        <div id="paddingCenter" class="box-middle">
+                          <div id="paddingLeft" class="box-left">-</div>
+                            <div id="contentBox" class="box box-content">&nbsp;</div>
+                          <div id="paddingRight" class="box-right">-</div>
+                        </div>
+                        <div id="paddingBottom" class="box-bottom">-</div>
+                      </div>
+                    <div id="borderRight" class="box-right">-</div>
+                  </div>
+                  <div id="borderBottom" class="box-bottom">-</div>
+                </div>
+              <div id="marginRight" class="box-right">-</div>
+            </div>
+            <div id="marginBottom" class="box-bottom">-</div>
+          </div>
+          <hr>
+          <div id="computedStyle">
+            <div class="opt">Filter  <span><input type="checkbox" id="computedStyleShowAll"> Show all</span></div>
+            <div id="computedStyleList"></div>
+          </div>
         </div>
       </div>
     </div>
