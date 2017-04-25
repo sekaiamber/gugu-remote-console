@@ -106,3 +106,37 @@
     }
   }
 }
+
+#elementSelector {
+  height: 300px;
+  overflow: auto;
+  cursor: pointer;
+
+  span {
+    pointer-events: none;
+  }
+  span.tag {
+    color: #881280;
+  }
+  .child {
+    padding-left: 16px;
+    position: relative;
+    &>.active {
+      background: #3879D9;
+      color: #A5A5A5;
+
+      span.tag {
+        color: #fff;
+      }
+    }
+
+    &::before,
+    &::after {
+      pointer-events: none;
+      content: '...';
+      color: #aaa;
+      margin: 1em 0;
+      display: inline-block;
+    }
+  }
+}

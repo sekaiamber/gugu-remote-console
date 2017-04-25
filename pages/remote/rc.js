@@ -9,6 +9,7 @@ let syncInfoRef;
 let syncFeaturesRef;
 let syncConfigsRef;
 let syncElementSelectRef;
+let syncElementSelectToRef;
 
 export default class RC {
   constructor(uuid, conf = {}) {
@@ -38,6 +39,7 @@ export default class RC {
     syncFeaturesRef = this.sync.ref(`features/${this.uuid}`);
     syncConfigsRef = this.sync.ref(`configs/${this.uuid}`);
     syncElementSelectRef = this.sync.ref(`element/${this.uuid}/select`);
+    syncElementSelectToRef = this.sync.ref(`element/${this.uuid}/selectTo`);
 
     // logs
     syncLogRef.endAt(0).limitToLast(10).on('child_added', (snapshot) => {
@@ -156,6 +158,9 @@ export default class RC {
     } else {
       syncConfigsRef.update(send);
     }
+  }
+  selectToElement(position) {
+    syncElementSelectToRef.set(JSON.stringify(position));
   }
 
   onCommandResponse(/* response */) {}

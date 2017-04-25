@@ -5,6 +5,23 @@ import defComputedStyle from '../../lib/constants/defComputedStyle.json';
 
 let rc;
 
+function buildHtmlByStructure(structure, data, hasChild = true) {
+  const $ret = $(`<div> &lt;<span class="tag">${structure[0]}</span>${structure[1] ? ' id="' + structure[1] + '"' : ''}${structure[2] ? ' class="' + structure[2] + '"' : ''}&gt;${hasChild ? '<div class="child"></div>' : '...'}&lt;/<span class="tag">${structure[0]}</span>&gt; </div>`);
+  $ret.data('info', data);
+  return $ret;
+}
+
+function cssStringToObject(cssText) {
+  const regex = /([\w-]*)\s*:\s*([^;]*)/g;
+  let match = regex.exec(cssText);
+  const properties = {};
+  while (match) {
+    properties[match[1]] = match[2].trim();
+    match = regex.exec(cssText);
+  }
+  return properties;
+}
+
 function cutString(str, length = 50) {
   if (str.length <= length) return str;
   const ret = str.slice(0, length - 3);
@@ -183,6 +200,7 @@ $(document).ready(() => {
           $('#contentBox').html('&nbsp;');
         }
         const $computedStyleList = $('#computedStyleList').empty();
+        const $elementSelector = $('#elementSelector').empty();
         if (info.computedStyle) {
           let styles = {};
           Object.keys(defComputedStyle).forEach((key) => {
@@ -217,13 +235,38 @@ $(document).ready(() => {
             </div>`);
             const $list = $('.element-style-items', $sheet);
             Object.keys(styleSheet.style).forEach((name) => {
-              $list.append(`<div class="element-style"> <span class="style-name">${name}</span>: <span class="style-value">${styleSheet.style[name]}</span></div>`);
+              $list.append(`<div class="element-style"> <span class="style-name">${name}</span>: <span class="style-value">${styleSheet.style[name]}</span>;</div>`);
             });
             $elementStyleSheetsList.append($sheet);
           });
         }
         if (info.styleAttr) {
-          console.info(info.styleAttr);
+          const styleAttr = cssStringToObject(info.styleAttr);
+          Object.keys(styleAttr).forEach((name) => {
+            $elementStyleAttrList.append(`<div class="element-style"> <span class="style-name">${name}</span>: <span class="style-value">${styleAttr[name]}</span>;</div>`);
+          });
+        }
+        if (info.structure) {
+          const structure = info.structure;
+          let $parent = $('<div></div>');
+          if (structure.parents.length > 0) {
+            $parent = buildHtmlByStructure(structure.parents[0], { type: 'parent', index: 0 });
+            const $list = $('.child', $parent);
+            structure.brothers.forEach((bro, i) => {
+              const $bro = buildHtmlByStructure(bro, { type: 'brother', index: i }, false);
+              if (i === structure.index) {
+                $bro.addClass('active');
+                $bro.data('info', null);
+              }
+              $list.append($bro);
+            });
+            for (let i = 1; i < structure.parents.length; i += 1) {
+              const $pp = buildHtmlByStructure(structure.parents[i], { type: 'parent', index: i });
+              $('.child', $pp).append($parent);
+              $parent = $pp;
+            }
+          }
+          $elementSelector.append($parent);
         }
       },
     });
@@ -240,6 +283,13 @@ $(document).ready(() => {
       $('#computedStyleList').addClass('show-all');
     } else {
       $('#computedStyleList').removeClass('show-all');
+    }
+  });
+
+  $('#elementSelector').click((e) => {
+    const info = $(e.target).data('info');
+    if (info && rc) {
+      rc.selectToElement(info);
     }
   });
 });
