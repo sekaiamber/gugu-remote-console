@@ -201,6 +201,7 @@ $(document).ready(() => {
         }
         const $computedStyleList = $('#computedStyleList').empty();
         const $elementSelector = $('#elementSelector').empty();
+        $('#elementStyleAttr input').val('');
         if (info.computedStyle) {
           let styles = {};
           Object.keys(defComputedStyle).forEach((key) => {
@@ -243,7 +244,9 @@ $(document).ready(() => {
         if (info.styleAttr) {
           const styleAttr = cssStringToObject(info.styleAttr);
           Object.keys(styleAttr).forEach((name) => {
-            $elementStyleAttrList.append(`<div class="element-style"> <span class="style-name">${name}</span>: <span class="style-value">${styleAttr[name]}</span>;</div>`);
+            const $add = $(`<div class="element-style"> <span class="style-name">${name}</span>: <input class="style-value" />;</div>`);
+            $('input', $add).val(styleAttr[name]);
+            $elementStyleAttrList.append($add);
           });
         }
         if (info.structure) {
@@ -291,5 +294,20 @@ $(document).ready(() => {
     if (info && rc) {
       rc.selectToElement(info);
     }
+  });
+
+  $('#changeStyle').click(() => {
+    let style = '';
+    $('#elementStyleAttr .element-style').each((i, el) => {
+      const $el = $(el);
+      const $name = $('.style-name', $el);
+      const $value = $('.style-value', $el);
+      const name = $name.html() || $name.val();
+      const value = $value.html() || $value.val();
+      if (name && value) {
+        style += `${name}: ${value};`;
+      }
+    });
+    rc.styleToElement(style);
   });
 });

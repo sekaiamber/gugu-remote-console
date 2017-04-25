@@ -73,10 +73,15 @@
 #elementContent {
   display: flex;
   .style-name {
-    width: 55%;
     color: rgb(200, 0, 0);
   }
-  .style-value {
+  input.style-name {
+    width: 20%;
+  }
+  span.style-name {
+    width: 55%;
+  }
+  span.style-value {
     width: 40%;
   }
 }

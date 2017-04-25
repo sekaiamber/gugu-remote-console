@@ -10,6 +10,7 @@ let syncFeaturesRef;
 let syncConfigsRef;
 let syncElementSelectRef;
 let syncElementSelectToRef;
+let syncElementSelectStyleToRef;
 
 export default class RC {
   constructor(uuid, conf = {}) {
@@ -40,6 +41,7 @@ export default class RC {
     syncConfigsRef = this.sync.ref(`configs/${this.uuid}`);
     syncElementSelectRef = this.sync.ref(`element/${this.uuid}/select`);
     syncElementSelectToRef = this.sync.ref(`element/${this.uuid}/selectTo`);
+    syncElementSelectStyleToRef = this.sync.ref(`element/${this.uuid}/styleTo`);
 
     // logs
     syncLogRef.endAt(0).limitToLast(10).on('child_added', (snapshot) => {
@@ -161,6 +163,9 @@ export default class RC {
   }
   selectToElement(position) {
     syncElementSelectToRef.set(JSON.stringify(position));
+  }
+  styleToElement(style) {
+    syncElementSelectStyleToRef.set(style);
   }
 
   onCommandResponse(/* response */) {}
