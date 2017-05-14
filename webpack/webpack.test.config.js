@@ -16,7 +16,7 @@ var config = {
 
   plugins: [
     new WebpackShellPlugin({
-      onBuildExit: "mocha test_dist/test.js --slow 5000 --timeout 10000"
+      onBuildExit: "mocha test_dist/test.js --slow 5000 --timeout 10000 --reporter nyan"
     })
   ],
   resolveLoader: {
