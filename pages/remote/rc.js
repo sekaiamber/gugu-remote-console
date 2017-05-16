@@ -1,5 +1,6 @@
 import LZString from 'lz-string';
 import features from '../../lib/constants/features.json';
+import BeatHeart from '../../lib/utils/beatHeart';
 
 let syncLogRef;
 let syncCommandRef;
@@ -11,6 +12,8 @@ let syncConfigsRef;
 let syncElementSelectRef;
 let syncElementSelectToRef;
 let syncElementSelectStyleToRef;
+let syncConnectedRef;
+let syncHeartbeatRef;
 
 export default class RC {
   constructor(uuid, conf = {}) {
@@ -26,6 +29,8 @@ export default class RC {
     if (conf.onFeaturesChange) this.onFeaturesChange = conf.onFeaturesChange;
     if (conf.onConfigsChange) this.onConfigsChange = conf.onConfigsChange;
     if (conf.onSelectElementChange) this.onSelectElementChange = conf.onSelectElementChange;
+    if (conf.onConnectedChange) this.onConnectedChange = conf.onConnectedChange;
+    if (conf.onRemoteConnectedChange) this.onRemoteConnectedChange = conf.onRemoteConnectedChange;
 
     const config = {
       syncURL: 'https://remote-console.wilddogio.com/',
@@ -42,6 +47,8 @@ export default class RC {
     syncElementSelectRef = this.sync.ref(`element/${this.uuid}/select`);
     syncElementSelectToRef = this.sync.ref(`element/${this.uuid}/selectTo`);
     syncElementSelectStyleToRef = this.sync.ref(`element/${this.uuid}/styleTo`);
+    syncConnectedRef = this.sync.ref('/.info/connected');
+    syncHeartbeatRef = this.sync.ref(`heartbeat/${this.uuid}`);
 
     // logs
     syncLogRef.endAt(0).limitToLast(10).on('child_added', (snapshot) => {
@@ -131,6 +138,37 @@ export default class RC {
       //   this.onSelectElementChange({});
       }
     });
+
+    // connect
+    syncConnectedRef.on('value', this.onConnectedChange);
+
+    // heartbeat
+    this.heart = null;
+    this.firstHeartBeat = false;
+    syncHeartbeatRef.on('value', (snapshot) => {
+      const heartbeat = snapshot.val();
+      if (!this.heart || !heartbeat) {
+        this.heart = new BeatHeart();
+        this.heart.on('beat', (nextBeat) => {
+          console.info('beat: ' + nextBeat);
+          syncHeartbeatRef.set(nextBeat);
+          if (this.firstHeartBeat) {
+            this.onRemoteConnectedChange(true);
+          } else {
+            this.firstHeartBeat = true;
+          }
+        });
+        this.heart.on('arrest', () => {
+          console.info('remote connect break');
+          this.onRemoteConnectedChange(false);
+        });
+        this.heart.beat(heartbeat);
+      } else {
+        setTimeout(() => {
+          this.heart.beat(heartbeat);
+        }, 3000);
+      }
+    });
   }
 
   onLogAdd(members /* , caller, key */) {
@@ -181,6 +219,10 @@ export default class RC {
   onConfigsChange(/* configs */) {}
 
   onSelectElementChange(/* info */) {}
+
+  onConnectedChange(/* connected */) {}
+
+  onRemoteConnectedChange(/* connected */) {}
 
   disconnect() {
     this.wilddog.sync().goOffline();
