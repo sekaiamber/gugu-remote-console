@@ -145,3 +145,19 @@
     }
   }
 }
+
+#connectStatus {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  background: #ff5454;
+  vertical-align: middle;
+
+  &.connected {
+    background: #eaea04;
+
+    &.remote-connected {
+      background: #4eff4e;
+    }
+  }
+}

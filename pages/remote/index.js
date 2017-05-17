@@ -272,6 +272,20 @@ $(document).ready(() => {
           $elementSelector.append($parent);
         }
       },
+      onConnectedChange(connected) {
+        if (connected) {
+          $('#connectStatus').addClass('connected');
+        } else {
+          $('#connectStatus').removeClass('connected');
+        }
+      },
+      onRemoteConnectedChange(connected) {
+        if (connected) {
+          $('#connectStatus').addClass('remote-connected ');
+        } else {
+          $('#connectStatus').removeClass('remote-connected ');
+        }
+      },
     });
   });
 
