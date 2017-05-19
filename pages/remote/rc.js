@@ -1,6 +1,6 @@
 import LZString from 'lz-string';
-import features from '../../lib/constants/features.json';
-import BeatHeart from '../../lib/utils/beatHeart';
+import features from 'gugu-remote-utils/lib/constants/features.json';
+import BeatHeart from 'gugu-remote-utils/lib/beatHeart';
 
 let syncLogRef;
 let syncCommandRef;

@@ -1,6 +1,6 @@
 /* eslint import/no-extraneous-dependencies: 0 */
 import { expect } from 'chai';
-import BeatHeart from '../../lib/utils/beatHeart';
+import BeatHeart from 'gugu-remote-utils/lib/beatHeart';
 
 describe('beat heart', () => {
   it('first beat', (done) => {
