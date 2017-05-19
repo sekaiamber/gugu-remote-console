@@ -1,7 +1,7 @@
 /* eslint import/no-extraneous-dependencies: 0 */
 import { expect } from 'chai';
+import { encoder } from 'gugu-remote-utils/lib/object';
 import fixtures from './fixtures';
-import { encoder } from '../../lib/utils/object';
 
 describe('object analysis', () => {
   it('basic types: boolean', (done) => {

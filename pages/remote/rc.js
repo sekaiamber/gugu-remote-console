@@ -150,7 +150,6 @@ export default class RC {
       if (!this.heart || !heartbeat) {
         this.heart = new BeatHeart();
         this.heart.on('beat', (nextBeat) => {
-          console.info('beat: ' + nextBeat);
           syncHeartbeatRef.set(nextBeat);
           if (this.firstHeartBeat) {
             this.onRemoteConnectedChange(true);
@@ -203,6 +202,7 @@ export default class RC {
     syncElementSelectToRef.set(JSON.stringify(position));
   }
   styleToElement(style) {
+    console.log(style);
     syncElementSelectStyleToRef.set(style);
   }
 
