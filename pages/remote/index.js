@@ -1,7 +1,7 @@
 import '!!style-loader!css-loader!autoprefixer?{browsers:["last 2 version", "> 1%"]}!sass!./index.scss';
+import defComputedStyle from 'gugu-remote-utils/lib/constants/defComputedStyle.json';
 import $ from 'jquery';
 import RC from './rc';
-import defComputedStyle from '../../lib/constants/defComputedStyle.json';
 
 let rc;
 
