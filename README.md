@@ -1,5 +1,5 @@
 # GUGU
-This is a project that help user debug in mobile end. It carry `console.log`'s log to an remote page, so that user can see logs in that page.
+This is a project that help user debug in mobile end.
 
 Its name is `GUGU`, which is the nickname of the famous MMORPG game `World of Warcraft`'s character Druid(Moonkin form).
 
@@ -17,7 +17,16 @@ Moonkin form enables Druids to control hurricane and lightning, we wish our proj
 
 2. Access `https://sekaiamber.github.io/gugu-remote-console/`, entry your screen id(e.g., YOUR-SCREEN-ID), click `CONNECT`.
 
-3. Then run your project, when `console.log()` executed, you can see logs in this page.
+3. Then run your project, and enjoy :)
+
+## Features
+
+* Select DOM element in remote end, get element details in debug page, include style, box model, path structure, even change styles.
+* Get console output in debug page.
+* Send and run console command to remote page, with total error feedback.
+* Get all network activities in debug page, include request and response informations.
+* Get remote end device informations.
+* Detect remote end device features.
 
 ## Develop
 
@@ -39,6 +48,6 @@ Get files in `dist/`.
 
 ## LICENSE
 
-Copyright 2015-2016 CLEVERIOUS(@sekaiamber)
+Copyright 2015-2018 KUCHAIN(@sekaiamber)
 
 Released under the MIT and GPL (version 2 or later) Licenses.
